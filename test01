@@ -1,0 +1,85 @@
+#----SAMPLE_A-------------------------------------
+
+from requests import Request, Session
+s = requests.Session()
+
+s.get('http://httpbin.org/cookies/set/sessioncookie/123456789')
+r = s.get("http://httpbin.org/cookies")
+
+print(r.text)
+
+#----SAMPLE_B-------------------------------------
+
+from requests import Request, Session
+
+s = Session()
+req = Request('GET', url,
+    data=data,
+    headers=header
+)
+prepped = req.prepare()
+
+#----SAMPLE_C-------------------------------------
+
+from requests import Request, Session
+
+s = requests.Session()
+
+s.get('http://tsfs.forest.gov.tw/cht/index.php?act=resveration')
+r = s.get("http://httpbin.org/cookies")
+
+#-----------------------------------------
+#-----------------------------------------
+
+#----TEST_CODE_A-------------------------------------
+
+#get cookies
+import urllib2  
+import cookielib  
+cookie = cookielib.CookieJar()  
+opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie))  
+response = opener.open('http://tsfs.forest.gov.tw/cht/index.php?act=resveration')  
+for item in cookie:  
+    print 'Name = '+item.name  
+    print 'Value = '+item.value
+    
+#----TEST_RESULT_A-------------------------------------
+Name = PHPSESSID
+Value = 5d9uq6dnno49hd58ok3he2tqv2
+
+
+#-----------------------------------------
+#-----------------------------------------
+#----TEST_CODE_B-------------------------------------
+
+from requests import Request, Session
+
+s = requests.Session()
+
+s.get('http://tsfs.forest.gov.tw/cht/index.php?act=resveration')
+r = s.get("http://tsfs.forest.gov.tw/cht/index.php?act=resveration", cookies={'PHPSESSID': '1guupcpihium8gvhrd3bg2boh2'})
+
+#----TEST_RESULT_B-------------------------------------
+faild
+
+
+#-----------------------------------------
+#-----------------------------------------
+#----TEST_CODE_C-------------------------------------
+
+#false,i cannot open browser.
+import urllib2
+import webbrowser
+
+url = 'http://tsfs.forest.gov.tw/cht/index.php?act=resveration'
+
+#open browser
+chrome_path = 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe %s'
+webbrowser.get(chrome_path).open("http://www.google.com")
+#(need to add cookie to the request somehow)
+
+#url = 'http://tsfs.forest.gov.tw/cht/index.php?act=resveration'
+#urllib2.urlopen(url)
+
+#----TEST_RESULT_C-------------------------------------
+False
